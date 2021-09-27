@@ -1,25 +1,28 @@
-# README
+# Task Management App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## ERD
 
-Things you may want to cover:
 
-* Ruby version
+### User 
 
-* System dependencies
+| Column Name   |   DataType    |
+| :----:        |  :----:       | 
+| id            |   Int         | 
+| name          |   string      | 
+| email         |   string      | 
+| password      |   string      | 
+| create_at     |   timestamp   |
+| updated_at    |   timestamp   |
 
-* Configuration
+### Task
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# everyleaf
+| Column Name   |   DataType    |
+| :----:        |  :----:       | 
+| id            |   Int         | 
+| name          |   string      | 
+| content       |   Text        | 
+| status        |   string      | 
+| deadline      |   timestamp   |
+| create_at     |   timestamp   |
+| updated_at    |   timestamp   |
+| user_id       |   int         |
