@@ -23,6 +23,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
   gem 'rexml'
+  gem 'faker'
 end
 
 group :development do
@@ -34,7 +35,6 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15'
-  gem 'chromedriver-helper'
   gem 'webdrivers'
 end
 
