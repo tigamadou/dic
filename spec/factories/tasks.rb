@@ -1,8 +1,10 @@
+require "time"
+
 FactoryBot.define do
     factory :task do
       name {'Test task'}
       content {'Test task content'}
-      exprired_at  {DateTime}
+      expired_at  {Time.now}
       status {'done'}
     end
   end

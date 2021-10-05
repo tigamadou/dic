@@ -7,5 +7,5 @@ fr:
         name: Nom 
         content: Détails
         status: Status
-        exprired_at: Echéance
+        expired_at: Echéance
      
