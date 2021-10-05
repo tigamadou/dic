@@ -4,8 +4,7 @@ RSpec.describe 'Task management function', type: :system do
     
     before(:each) do
         @task1 = FactoryBot.create(:task)
-        @task2 = FactoryBot.create(:task)
-        @task3 = FactoryBot.create(:task)
+       
     end
 
       describe 'Task display function' do
@@ -31,6 +30,16 @@ RSpec.describe 'Task management function', type: :system do
                 click_link('Show', :match => :first)
                 expect(page).to have_content @task1.name
             end
+        end
+
+        context 'When tasks are arranged in descending order of creation date and time' do
+          it 'New task is displayed at the top' do
+            @task4 = FactoryBot.create(:task, name: 'The last Task')
+            visit tasks_path
+            expect(current_path).to eq tasks_path
+            expect(page).to have_content @task4.name
+            expect(page.first('tbody > tr')).to have_content @task4.name
+          end
         end
 
         
