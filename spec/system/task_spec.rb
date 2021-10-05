@@ -92,7 +92,7 @@ RSpec.describe 'Task management function', type: :system do
                 expect(current_path).to eq tasks_path
                 expect(page).to have_content 'Tasks'
                 click_link('Edit', :match => :first)
-                expect(page).to have_content 'Editing Task'
+                expect(page).to have_content 'Edit Task'
                 editedName = 'Edited Task Name'
                 fill_in('Name', :with => editedName)
                 click_button 'Update Task'
@@ -105,7 +105,7 @@ RSpec.describe 'Task management function', type: :system do
                 expect(current_path).to eq tasks_path
                 expect(page).to have_content 'Tasks'
                 click_link('Edit', :match => :first)
-                expect(page).to have_content 'Editing Task'
+                expect(page).to have_content 'Edit Task'
                 fill_in('Name', :with => '')
                 click_button 'Update Task'
                 expect(current_path).to eq task_path @task1

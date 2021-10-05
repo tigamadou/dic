@@ -231,4 +231,4 @@ fr:
       name: Nom 
       content: Détails
       status: Status
-      deadline: Echéance
+      exprired_at: Echéance

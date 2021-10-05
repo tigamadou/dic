@@ -226,5 +226,5 @@ en:
     task:
       name: Name
       content: Content
-      deadline: Deadline
+      exprired_at: exprired_at
       status: Status

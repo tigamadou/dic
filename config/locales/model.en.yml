@@ -7,6 +7,6 @@ fr:
         name: Name 
         content: Content
         status: Status
-        deadline: Deadline
+        exprired_at: exprired_at
         
      
