@@ -1,0 +1,9 @@
+fr:
+  activerecord:
+    models:
+      task: tache 
+    attributes:
+      task:
+        name: nom 
+        content: details
+     
