@@ -1,9 +1,11 @@
 fr:
   activerecord:
     models:
-      task: tache 
+      task: Tâche 
     attributes:
       task:
-        name: nom 
-        content: details
+        name: Nom 
+        content: Détails
+        status: Status
+        deadline: Echéance
      

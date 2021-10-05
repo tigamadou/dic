@@ -217,3 +217,18 @@ fr:
       long: "%A %d %B %Y %Hh%M"
       short: "%d %b %Hh%M"
     pm: pm
+  default:
+    tasks: "Tâches"
+    new_model: "Nouveau %{model_name}"
+    edit_model: "Modification %{model_name}"
+    delete_model: "Supprimer %{model_name}" 
+    show: 'Afficher'
+    edit: 'Modifier'
+    destroy: 'Supprimer'
+    back: 'Retour'
+    confirm: 'Êtes-vous sûre?'
+    task:
+      name: Nom 
+      content: Détails
+      status: Status
+      deadline: Echéance

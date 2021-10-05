@@ -205,3 +205,18 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  default:
+    tasks: "タスク "
+    new_model: "新しい  %{model_name}"
+    edit_model: "編集  %{model_name}"
+    delete_model: "消去  %{model_name}" 
+    show: '見せる '
+    edit: '編集'
+    destroy: '消去'
+    back: '戻る '
+    confirm: '本気ですか？'
+    task:
+      name: 名前 
+      content: 内容
+      status: 状態 
+      deadline: 締め切り
