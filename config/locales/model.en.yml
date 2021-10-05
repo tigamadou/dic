@@ -1,0 +1,12 @@
+fr:
+  activerecord:
+    models:
+      task: task 
+    attributes:
+      task:
+        name: Name 
+        content: Content
+        status: Status
+        deadline: Deadline
+        
+     
