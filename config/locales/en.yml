@@ -228,3 +228,4 @@ en:
       content: Content
       expired_at: Expires
       status: Status
+      priority: Priority

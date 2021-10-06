@@ -7,6 +7,8 @@ class TasksController < ApplicationController
     @tasks = @tasks.filter_by_status(params[:status]) if params[:status].present? && params[:status] != 'not_set'
     if params[:sort_expired].present?
       @tasks = @tasks.order_by_deadline
+    elsif params[:sort_priority].present?
+      @tasks = @tasks.order_by_priority
     else
       @tasks = @tasks.order("created_at DESC")
     end
@@ -63,6 +65,6 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:name, :content, :expired_at, :status)
+      params.require(:task).permit(:name, :content, :expired_at, :status, :priority)
     end
 end

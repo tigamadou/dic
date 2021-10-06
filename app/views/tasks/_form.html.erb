@@ -28,7 +28,18 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.text_field :status %>
+    <%= form.select :status, 
+      options_for_select(Task.status_types.map {|key, value| [key.titleize, Task.status_types.key(value)] if key != 'not_set'}),
+      { :selected => :status}
+    %>
+  </div>
+
+  <div class="field">
+    <%= form.label :priority %>
+    <%= form.select :priority, 
+      options_for_select(Task.priority_types.map {|key, value| [key.titleize, Task.priority_types.key(value)] }),
+      { :selected => :priority}
+    %>
   </div>
 
   <div class="actions">

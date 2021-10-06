@@ -1,8 +1,10 @@
 class Task < ApplicationRecord
     validates :name, presence: true
-    validates :content, presence: true
+    validates :status, presence: true
 
     enum status_type: [:not_set, :unstarted, :in_progress, :completed]
+    enum priority_type: [:low, :medium, :hight]
+    
 
     def self.search(query)
         where('name LIKE :query',query: "%#{query}%") 
