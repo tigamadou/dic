@@ -12,7 +12,11 @@ class Task < ApplicationRecord
         where('status LIKE :status', status: "%#{status}%") 
     end
 
-    def self.filter_by_deadline
+    def self.order_by_deadline
+        order("expired_at DESC")
+    end
 
+    def self.order_by_priority
+        order("priority DESC")
     end
 end
