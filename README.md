@@ -22,7 +22,7 @@
 | name          |   string      | 
 | content       |   Text        | 
 | status        |   string      | 
-| deadline      |   timestamp   |
+| expired_at      |   timestamp   |
 | create_at     |   timestamp   |
 | updated_at    |   timestamp   |
 | user_id       |   int         |

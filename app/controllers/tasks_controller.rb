@@ -2,7 +2,18 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
 
   def index
-    @tasks = Task.all.order("created_at DESC")
+    @tasks = Task.all.page params[:page]
+    @tasks = @tasks.search(params[:search]) if params[:search].present? 
+    @tasks = @tasks.filter_by_status(params[:status]) if params[:status].present? && params[:status] != 'not_set'
+    if params[:sort_expired].present?
+      @tasks = @tasks.order_by_deadline
+    elsif params[:sort_priority].present?
+      @tasks = @tasks.order_by_priority
+    else
+      @tasks = @tasks.order("created_at DESC")
+    end
+    
+     
   end
 
   def show
@@ -32,6 +43,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        # byebug
         format.html { redirect_to @task, notice: "Task was successfully updated." }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -55,6 +67,6 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:name, :content, :deadline, :status)
+      params.require(:task).permit(:name, :content, :expired_at, :status, :priority)
     end
 end

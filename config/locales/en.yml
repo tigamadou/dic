@@ -226,5 +226,6 @@ en:
     task:
       name: Name
       content: Content
-      deadline: Deadline
+      expired_at: Expires
       status: Status
+      priority: Priority
