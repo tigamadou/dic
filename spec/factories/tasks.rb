@@ -5,6 +5,6 @@ FactoryBot.define do
       name {'Test task'}
       content {'Test task content'}
       expired_at  {Time.now}
-      status {'done'}
+      status {'unstarted'}
     end
   end

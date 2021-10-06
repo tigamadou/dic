@@ -226,5 +226,5 @@ en:
     task:
       name: Name
       content: Content
-      expired_at: expired_at
+      expired_at: Expires
       status: Status

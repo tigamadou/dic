@@ -135,5 +135,43 @@ RSpec.describe 'Task management function', type: :system do
         end
       end
 
+      describe 'Search function' do
+        before do
+          FactoryBot.create(:task, name: "First Task")
+          FactoryBot.create(:task, name: "Second Task",status:'completed')
+        end
+        context 'If you do a fuzzy search by Title' do
+          it "Filter by tasks that include search keywords" do
+            visit tasks_path
+            fill_in(:search, with: 'First')
+            click_button 'Search'
+            expect(current_path).to eq tasks_path
+            expect(page).to have_content 'First Task'
+            expect(page).not_to have_content 'Second Task'
+          end
+        end
+        context 'When you search for status' do
+          it "Tasks that exactly match the status are narrowed down" do
+            visit tasks_path
+            select "Completed", :from => "status"
+            click_button 'Search'
+            expect(current_path).to eq tasks_path
+            expect(page).to have_content 'Second Task'
+            expect(page).not_to have_content 'First Task'
+          end
+        end
+        context 'Title performing fuzzy search of title and status search' do
+          it "Narrow down tasks that include search keywords in the Title and exactly match the status" do
+            # Implement here
+            visit tasks_path
+            fill_in(:search, with: 'Second')
+            select "Completed", :from => "status"
+            click_button 'Search'
+            expect(current_path).to eq tasks_path
+            expect(page).to have_content 'Second Task'
+            expect(page).not_to have_content 'First Task'
+          end
+        end
+      end
 
 end

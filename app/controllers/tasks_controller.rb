@@ -3,6 +3,9 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all.order("created_at DESC")
+    @tasks = @tasks.search(params[:search]) if params[:search].present? 
+    @tasks = @tasks.filter_by_status(params[:status]) if params[:status].present? && params[:status] != 'not_set'
+    
   end
 
   def show
