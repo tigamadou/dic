@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.all.page params[:page]
     @tasks = @tasks.search(params[:search]) if params[:search].present? 
     @tasks = @tasks.filter_by_status(params[:status]) if params[:status].present? && params[:status] != 'not_set'
     if params[:sort_expired].present?
@@ -12,6 +12,8 @@ class TasksController < ApplicationController
     else
       @tasks = @tasks.order("created_at DESC")
     end
+    
+     
   end
 
   def show

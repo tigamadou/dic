@@ -4,6 +4,7 @@ class Task < ApplicationRecord
 
     enum status_type: [:not_set, :unstarted, :in_progress, :completed]
     enum priority_type: [:low, :medium, :hight]
+    paginates_per 2
     
 
     def self.search(query)
