@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_200449) do
   create_table "tasks", force: :cascade do |t|
     t.string "name", null: false
     t.text "content"
-    t.datetime "expired_at", default: "2021-10-06 21:16:04", null: false
+    t.datetime "expired_at", default: "2021-10-06 21:39:14", null: false
     t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_200449) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "password"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

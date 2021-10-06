@@ -6,6 +6,7 @@ class Task < ApplicationRecord
     enum priority_type: [:low, :medium, :hight]
     paginates_per 50
     
+    belongs_to :user
 
     def self.search(query)
         where('name LIKE :query',query: "%#{query}%") 
