@@ -1,10 +1,11 @@
-<p id="notice"><%= notice %></p>
+
 
 <h1><%= t("default.tasks") %></h1>
 <%= render 'search' %>
 <table  class="table">
   <thead>
     <tr>
+    <th><%= t("default.task.author") %></th>
       <th><%= t("default.task.name") %></th>
       <th><%= t("default.task.content") %></th>
       <th>
@@ -34,6 +35,7 @@
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
+        <td><%= current_user.name %></td>
         <td><%= task.name %></td>
         <td><%= task.content %></td>
         <td><%= task.expired_at %></td>

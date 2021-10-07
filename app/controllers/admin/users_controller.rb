@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   before_action :can_delete_admin?, only: %i[ destroy]
   before_action :can_edit_admin?, only: %i[ update ]
   def index
-    @users = User.all
+    @users = User.all.includes(:tasks)
   end
 
   def show
