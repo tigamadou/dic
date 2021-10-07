@@ -19,17 +19,15 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     
-    respond_to do |format|
+    
       if @user.save
         session[:user_id] = @user.id
-        format.html do 
-          flash.now[:primary] = 'Connected!'
-          redirect_to root_path
-        end
+        flash[:info] = 'Conected'
+        redirect_to root_path
       else
-        format.html { render :new, status: :unprocessable_entity }
+        render :new, status: :unprocessable_entity 
       end
-    end
+    
   end
 
   def update
