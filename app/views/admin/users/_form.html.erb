@@ -29,7 +29,13 @@
     <%= form.label :password_confirmation %> 
     <%= form.password_field :password_confirmation %> 
   </div>
-
+  <div class="field">
+    <%= form.label :role %>
+    <%= form.select :role, 
+      options_for_select(User.role_types.map {|key, value| [key.titleize, User.role_types.key(value)] }),
+      { :selected => :role}
+    %>
+  </div>
   <div class="actions">
     <%= form.submit %>
   </div>

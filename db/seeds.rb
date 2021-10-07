@@ -8,7 +8,7 @@
 name = 'John DOe'
 email = 'johndoe@domain.com'
 password = "123456"
-user = User.create!(name: name, email: email,password: password)
+user = User.create!(name: name, email: email,password: password, role: 'admin')
 user.tasks.create(name: 'First Task', content: 'This the first task content', expired_at: DateTime.now, status:'uncompleted', priority: 'low')
 
 # 10.times{ |i| u= User.create!(name: `User #{i}`, email: `johndoe#{i}@domain.com`,password: password)}
@@ -17,7 +17,7 @@ user.tasks.create(name: 'First Task', content: 'This the first task content', ex
     name = Faker::Games::Pokemon.name
     email = Faker::Internet.email
     password = "123456"
-    user = User.create!(Faker::Internet.user('name', 'email', 'password'))
+    user = User.create!(name: Faker::Internet.username, email: Faker::Internet.email, password: Faker::Internet.password)
     3.times do |y|
         status= ['unstarted','in_progress','completed']
         priorities= ['low','medium','hight']

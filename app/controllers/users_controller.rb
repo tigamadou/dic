@@ -22,9 +22,10 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         session[:user_id] = @user.id
-        
-        flash.now[:primary] = 'Connected!'
-        redirect_to root_path
+        format.html do 
+          flash.now[:primary] = 'Connected!'
+          redirect_to root_path
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -50,7 +51,7 @@ class UsersController < ApplicationController
 
   private
     def set_user
-      @user = User.find(params[:id])
+      @user = current_user
     end
 
     def user_params
