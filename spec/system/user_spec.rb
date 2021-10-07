@@ -14,7 +14,7 @@ RSpec.describe 'User integration tests', type: :system do
          fill_in('user[password]', with: '123456')
          fill_in('user[password_confirmation]', with: '123456')
          click_button 'Create User'
-         expect(page).to have_content 'Conected'
+         expect(page).to have_content 'Connected'
          expect(page).to have_content 'Tasks'
         end
     end
@@ -75,27 +75,166 @@ RSpec.describe 'User integration tests', type: :system do
 
   describe 'Session tests' do
     user= FactoryBot.create(:user)
+    before(:each) do
+        visit login_path
+    end
     context 'Connect the user' do
         it 'logs in the user' do
+            
+            fill_in('session[email]', with: user.email)
+            fill_in('session[password]', with: user.password)
+            click_button 'Log in'
+            expect(current_path).to eq root_path
+            expect(page).to have_content 'Connected'
+            expect(page).to have_content 'Tasks'
+        end
+
+        it 'logs out the user' do
             visit login_path
             fill_in('session[email]', with: user.email)
             fill_in('session[password]', with: user.password)
             click_button 'Log in'
             expect(current_path).to eq root_path
-            expect(page).to have_content 'Conected'
+            expect(page).to have_content 'Connected'
             expect(page).to have_content 'Tasks'
+            click_link 'Logout'
+            expect(current_path).to eq logout_path
+            expect(page).to have_content 'Logged out'
         end
     end
     
     context 'Show error the user' do
         it 'fails to log in the user' do
-            visit login_path
             fill_in('session[email]', with: user.email)
             fill_in('session[password]', with: '9774565')
             click_button 'Log in'
             expect(current_path).to eq sessions_path
             expect(page).to have_content 'Wrong credentials.!'
             
+        end
+    end
+
+    
+  end
+
+  describe 'user account tests' do
+    before(:each) do
+        @user= FactoryBot.create(:user)
+        @user2= FactoryBot.create(:user)
+        visit login_path
+        fill_in('session[email]', with: @user.email)
+        fill_in('session[password]', with: @user.password)
+        click_button 'Log in'
+        expect(current_path).to eq root_path
+        expect(page).to have_content 'Connected'
+        expect(page).to have_content 'Tasks'
+    end
+    context 'browse my page' do
+        it 'shows current user page' do 
+            click_link 'My page'
+            expect(current_path).to eq mypage_path
+            expect(page).to have_content @user.name
+        end
+
+        it 'redirect to task list if not the current user' do
+            visit user_path(@user2)
+            expect(current_path).to eq root_path
+        end
+
+
+    end
+  end
+
+  describe 'administarion tests one' do
+    before(:each) do
+        @user= FactoryBot.create(:user)
+        @user2= FactoryBot.create(:admin)
+        visit login_path
+    end
+    context 'access test' do
+        it 'admin user should access the adminarea' do
+            fill_in('session[email]', with: @user2.email)
+            fill_in('session[password]', with: @user2.password)
+            click_button 'Log in'
+            expect(current_path).to eq root_path
+            expect(page).to have_content 'Connected'
+            expect(page).to have_content 'Tasks'
+            visit admin_users_path
+            expect(page).to have_content 'Users'
+        end
+
+        it 'default user should not access the adminarea' do
+            fill_in('session[email]', with: @user.email)
+            fill_in('session[password]', with: @user.password)
+            click_button 'Log in'
+            expect(current_path).to eq root_path
+            expect(page).to have_content 'Connected'
+            expect(page).to have_content 'Tasks'
+            visit admin_users_path
+            expect(current_path).to eq root_path
+            expect(page).to have_content 'Area access restricted to Administrator.!'
+        end
+
+    end
+  end
+
+  describe 'administration tests 2' do
+    before(:each) do
+        @user= FactoryBot.create(:admin)
+        visit login_path
+        fill_in('session[email]', with: @user.email)
+        fill_in('session[password]', with: @user.password)
+        click_button 'Log in'
+        expect(current_path).to eq root_path
+        expect(page).to have_content 'Connected'
+        expect(page).to have_content 'Tasks'
+        visit admin_users_path
+        expect(page).to have_content 'Users'
+    end
+
+    context 'user creation' do 
+
+        it 'create a new user' do
+        
+            click_link 'New User'
+            expect(current_path).to eq new_admin_user_path
+            testUser = {
+                name: Faker::Games::Pokemon.name, 
+                email: Faker::Internet.email,
+                password: Faker::Internet.password,
+            }
+            fill_in('user[name]', with: testUser[:name])
+            fill_in('user[email]', with: testUser[:email])
+            fill_in('user[password]', with: testUser[:password])
+            fill_in('user[password_confirmation]', with: testUser[:password])
+            select "Default", :from => "user[role]"
+            click_button 'Create User'
+            expect(current_path).to eq admin_users_path
+            expect(page).to have_content testUser[:name]
+        end
+
+        it 'access the user details page' do
+            user = FactoryBot.create(:user)
+            visit admin_user_path user
+            expect(page).to have_content user.name
+        end
+
+        it 'edit the user details' do
+            user = FactoryBot.create(:user)
+            visit edit_admin_user_path user
+            expect(page).to have_content 'Editing User'
+            new_name =  Faker::Games::Pokemon.name
+            fill_in('user[name]', with: new_name)
+            click_button 'Update User'
+            expect(current_path).to eq admin_user_path user
+            expect(page).to have_content new_name
+        end
+
+        it 'delete the user' do 
+        
+            click_link('Destroy', :match => :first)
+            page.driver.browser.switch_to.alert.accept
+            expect(page).to have_content 'User was successfully destroyed.'
         end
     end
   end

@@ -6,9 +6,17 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
+    @user = User.find(params[:id])
+    if(@user == current_user)
+      redirect_to mypage_path
+    else
+      redirect_to root_path
+    end
   end
 
+  def mypage
+    @user = current_user
+  end
   def new
     @user = User.new
   end
@@ -22,7 +30,7 @@ class UsersController < ApplicationController
     
       if @user.save
         session[:user_id] = @user.id
-        flash[:info] = 'Conected'
+        flash[:info] = 'Connected'
         redirect_to root_path
       else
         render :new, status: :unprocessable_entity 

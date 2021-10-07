@@ -21,11 +21,11 @@ class Admin::UsersController < ApplicationController
     @user = User.new(admin_user_params)
     respond_to do |format|
       if @user.save
-        session[:user_id] = @user.id
+        
         format.html do
           
           flash.now[:primary] = 'Connected!'
-          redirect_to root_path
+          redirect_to admin_users_path
         end
       else
         format.html { render :new, status: :unprocessable_entity }

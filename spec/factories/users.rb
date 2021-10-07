@@ -1,15 +1,15 @@
 FactoryBot.define do
   factory :user do
-    name { "Default User" }
-    email { "default@default.com" }
-    password { "123456" }
+    name { Faker::Games::Pokemon.name }
+    email { Faker::Internet.email}
+    password { Faker::Internet.password }
     role { 'default'}
   end
 
-  factory :admin do
-    name { "Admin User" }
-    email { "admin@admin.com" }
-    password { "123456" }
+  factory :admin, class: User do
+    name { Faker::Games::Pokemon.name }
+    email { Faker::Internet.email}
+    password { Faker::Internet.password}
     role { 'admin' }
   end
 end
