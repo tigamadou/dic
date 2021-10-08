@@ -10,15 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_06_233451) do
+ActiveRecord::Schema.define(version: 2021_10_08_072357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "task_id"
+    t.bigint "tag_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["task_id"], name: "index_taggings_on_task_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "name", null: false
     t.text "content"
-    t.datetime "expired_at", default: "2021-10-07 01:44:45", null: false
+    t.datetime "expired_at", default: "2021-10-08 10:47:44", null: false
     t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -40,5 +53,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_233451) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "taggings", "tags"
+  add_foreign_key "taggings", "tasks"
   add_foreign_key "tasks", "users"
 end
