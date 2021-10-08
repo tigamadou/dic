@@ -1,7 +1,21 @@
+<p id="notice"><%= notice %></p>
+<h1>My Page</h1>
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
 
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+<p class="mb-3">
+ 
+  <%= link_to 'Edit', edit_mypage_path %> |
+  <%= link_to 'Back', root_path %>
+</p>
 
-<h1><%= t("default.tasks") %></h1>
-<%= render 'search' %>
+<h2><%= t("default.tasks") %></h2>
 <table  class="table">
   <thead>
     <tr>
@@ -33,9 +47,9 @@
   </thead>
 
   <tbody>
-    <% @tasks.each do |task| %>
+    <% @user.tasks.each do |task| %>
       <tr>
-        <td><%= current_user.name %></td>
+        <td><%= @user.name %></td>
         <td><%= task.name %></td>
         <td><%= task.content %></td>
         <td><%= task.expired_at %></td>
@@ -49,8 +63,4 @@
   </tbody>
 </table>
 
-<br>
-<%= paginate @tasks %>
-<br>
-<%= link_to t("default.new_model", :model_name => Task.model_name.human), new_task_path, class: 'btn btn-success btn-sm text-white' %>
 
