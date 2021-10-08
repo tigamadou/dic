@@ -14,7 +14,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'kaminari'
-
+gem 'faker' 
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
@@ -23,7 +23,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
   gem 'rexml'
-  gem 'faker'   
+    
 end
 
 group :development do
