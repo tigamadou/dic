@@ -76,8 +76,8 @@ class Admin::UsersController < ApplicationController
       end
     end
 
-    def is_last_admin?(user)
-      return true if User.get_admins.count == 1 && user.role == 'admin'
+    def is_last_admin?
+      return true if User.get_admins.count == 1 && @user.role == 'admin'
   end
 
     

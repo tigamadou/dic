@@ -8,4 +8,5 @@ FactoryBot.define do
       status {'unstarted'}
       user_id { 1 }
     end
-  end
+end
+
