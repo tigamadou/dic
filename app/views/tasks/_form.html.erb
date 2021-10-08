@@ -41,7 +41,7 @@
       { :selected => :priority}
     %>
   </div>
-
+  <%= render 'tasks/tags' , form: form, task: task%>
   <div class="actions">
     <%= form.submit %>
   </div>

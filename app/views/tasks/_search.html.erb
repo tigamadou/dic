@@ -3,12 +3,15 @@
       <div class="col">    
           <%= form.text_field :search,  class: 'form-control', placeholder: 'Search', value: params[:search] %>    
       </div>
+      <div class="col">    
+          <%= form.select :tag_id, Tag.all.collect { |p| [ p.title, p.id ] },  { selected: params[:tag_id],prompt: 'Tag'}, {class: "form-select"}  %>
+      </div>
       <div class="col">
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Status</span>
             <%= form.select :status, 
                 options_for_select(Task.status_types.map {|key, value| [key.titleize, Task.status_types.key(value)]}),
-                { :selected => params[:status]}, 
+                { selected: params[:status]}, 
                 {class: "form-select"} %>
            
         </div>

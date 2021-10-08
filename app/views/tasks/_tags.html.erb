@@ -1,0 +1,7 @@
+<div class="field">
+
+<% Tag.all.each do |tag| %>
+    <%= form.check_box :tag_ids, { multiple: true, checked: tag[:checked], disabled: tag[:disabled], include_hidden: false }, tag[:id] %>
+    <%= tag.title %>
+  <% end %>
+</div>

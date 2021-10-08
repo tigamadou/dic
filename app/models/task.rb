@@ -1,7 +1,7 @@
 class Task < ApplicationRecord
     validates :name, presence: true
     validates :status, presence: true
-
+    
     enum status_type: [:not_set, :unstarted, :in_progress, :completed]
     enum priority_type: [:low, :medium, :hight]
     paginates_per 50
@@ -17,6 +17,10 @@ class Task < ApplicationRecord
 
     def self.filter_by_status(status)
         where('status LIKE :status', status: "%#{status}%") 
+    end
+    
+    def self.filter_by_tag(tag_id)
+        joins(:tags).where(tags: {id: tag_id}) 
     end
 
     def self.order_by_deadline
