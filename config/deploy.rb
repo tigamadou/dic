@@ -15,7 +15,7 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}
 # Number of versions to retain (*described later)
 set :keep_releases, 5
 # Ruby version
-set :rbenv_ruby, '3.0.1'
+set :rbenv_ruby, '2.6.5'
 set :rbenv_type, :system
 # The level of the log to output. Settings to: debug if you want to see the error log in detail.
 # For production environments,: info is normal。
