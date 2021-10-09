@@ -5,6 +5,8 @@ class TasksController < ApplicationController
     @tasks = current_user.tasks.page params[:page]
     @tasks = @tasks.search(params[:search]) if params[:search].present? 
     @tasks = @tasks.filter_by_status(params[:status]) if params[:status].present? && params[:status] != 'not_set'
+    @tasks = @tasks.filter_by_tag(params[:tag_id]) if params[:tag_id].present? 
+    
     if params[:sort_expired].present?
       @tasks = @tasks.order_by_deadline
     elsif params[:sort_priority].present?
@@ -29,8 +31,11 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = current_user.id
+    
+    
     respond_to do |format|
       if @task.save
+        @task.tags.build(params[:tag_ids])
         format.html { redirect_to @task, notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
@@ -40,10 +45,15 @@ class TasksController < ApplicationController
     end
   end
 
+  def saveTags (tag_ids)
+
+  end
+
   def update
     respond_to do |format|
       if @task.update(task_params)
-        # byebug
+        @task.tags.build(params[:tag_ids])
+        
         format.html { redirect_to @task, notice: "Task was successfully updated." }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -64,9 +74,10 @@ class TasksController < ApplicationController
   private
     def set_task
       @task = Task.find(params[:id])
+      
     end
 
     def task_params
-      params.require(:task).permit(:name, :content, :expired_at, :status, :priority)
+      params.require(:task).permit(:name, :content, :expired_at, :status, :priority, tag_ids: [ ])
     end
 end

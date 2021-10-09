@@ -60,12 +60,8 @@ class Admin::UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
     end
 
-    def admin_role_required
-      if !admin? 
-        flash.keep[:danger] = 'Area access restricted to Administrator.!'
-        redirect_to root_path 
-      end
-    end
+    
+    
     def can_delete_admin?
       if is_last_admin?
         flash.keep[:danger] = 'This user is the last Administrator.!'
@@ -82,5 +78,7 @@ class Admin::UsersController < ApplicationController
 
     def is_last_admin?
       return true if User.get_admins.count == 1 && @user.role == 'admin'
-    end
+  end
+
+    
 end
