@@ -6,7 +6,7 @@ set :application, 'app'
 # (Xxxxxxxx: user name, yyyyyyyy: application name)
 set :repo_url, 'https://github.com/tigamadou/everyleaf'
 #The branch to deploy. If you are using main by default, change master to main.
-set :branch, ENV['BRANCH'] || 'main'
+set :branch, ENV['BRANCH'] || 'develop'
 # The directory to deploy to.
 set :deploy_to, '/var/www/app'
 # Folders/files with symbolic links
